@@ -28,7 +28,7 @@ const Sidebar = ({ authUser, signOut }: SidebarProps) => {
      hover:bg-gray-800 font-semibold ${location.pathname === path ? "bg-gray-800" : "text-gray-400"}`;
 
   return (
-    <aside className="w-64 bg-gray-900 text-white flex flex-col py-8 sticky top-0 h-screen">
+    <aside className="w-64 bg-gray-900 text-white flex flex-col py-8 lg:pl-6 sticky top-0 h-screen">
       <div className="space-y-2 mb-2">
         <h1 className="text-2xl font-bold px-4 mb-6">
           <Link to="/">Dev Forum</Link>

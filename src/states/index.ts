@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { threadApi } from "./api/threadApi";
 import authUserReducer from "./authUser/reducer";
 import isPreloadReducer from "./isPreload/reducer";
 import threadDetailReducer from "./threadDetail/reducer";
@@ -14,7 +15,9 @@ const store = configureStore({
     users: usersReducer,
     threads: threadsReducer,
     threadDetail: threadDetailReducer,
+    [threadApi.reducerPath]: threadApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(threadApi.middleware),
 });
 
 export default store;

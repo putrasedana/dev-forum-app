@@ -14,8 +14,12 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Categories from "./components/Categories";
 import Spinner from "./components/Spinner";
 import ScrollToTop from "./components/ScrollToTop";
+import MobileSidebar from "./components/MobileSidebar";
+import { FaBars } from "react-icons/fa";
 
 const App = () => {
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   const dispatch = useAppDispatch();
 
   const authUser = useAppSelector((state) => state.authUser);
@@ -46,11 +50,26 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-900 flex justify-center">
       <div className="flex w-full max-w-7xl gap-6 h-full">
-        {/* Left Sidebar */}
-        <Sidebar authUser={authUser} signOut={onSignOut} />
+        {/* Left Sidebar - hidden on mobile */}
+        <div className="hidden lg:block">
+          <Sidebar authUser={authUser} signOut={onSignOut} />
+        </div>
 
         {/* Main Content */}
-        <main className="flex-1 bg-gray-900 p-8 text-gray-100 border-x border-gray-700">
+        <main className="flex-1 bg-gray-900 p-6 md:p-10 text-gray-100 border-x border-gray-700">
+          {/* Mobile Header */}
+          <div className="flex items-center justify-between border-b border-gray-700 pb-4 gap-4 mb-10 lg:hidden">
+            <h1 className="text-xl font-bold text-white">Dev Forum</h1>
+            <button
+              title="close menu"
+              type="button"
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="text-gray-400 hover:text-white"
+            >
+              <FaBars className="text-2xl" />
+            </button>
+          </div>
+
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<HomePage selectedCategories={selectedCategories} />} />
@@ -63,13 +82,23 @@ const App = () => {
           </Routes>
         </main>
 
-        {/* Right Sidebar */}
-        <Categories
-          categories={categories}
-          selectedCategories={selectedCategories}
-          onCategoryClick={handleCategoryClick}
-        />
+        {/* Right Sidebar - hidden on mobile */}
+        <div className="hidden xl:block">
+          <Categories
+            categories={categories}
+            selectedCategories={selectedCategories}
+            onCategoryClick={handleCategoryClick}
+          />
+        </div>
       </div>
+
+      {/* Mobile Sidebar */}
+      <MobileSidebar
+        authUser={authUser}
+        signOut={onSignOut}
+        isOpen={isMobileSidebarOpen}
+        onClose={() => setIsMobileSidebarOpen(false)}
+      />
     </div>
   );
 };

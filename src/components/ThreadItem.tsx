@@ -106,7 +106,7 @@ const ThreadItem = ({
 
         <div className="flex items-center gap-1 text-base">
           <img src={owner.avatar} alt={owner.name} className="w-6 h-6 rounded-full" />
-          <span className="font-medium text-gray-400">{owner.name}</span>
+          <span className="text-sm sm:text-base text-gray-400">{owner.name}</span>
         </div>
 
         <p className="text-sm sm:text-base">{postedAt(createdAt)}</p>
